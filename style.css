@@ -320,26 +320,63 @@ header .header-content img {
   background-color: #00180095;
 }
 
-@media (max-width: 768px) {
-  #about {
-    margin-top: 4rem; /* مسافة تبعده عن الهيدر */
-  }
-  
-  .header-content {
-    padding-bottom: 3rem; /* خلي الهيدر يبعد عن اللي بعده */
-    grid-template-columns: 1fr; /* صورة تحت الكلام */
+/* =================== Responsive =================== */
+
+@media (max-width: 992px) {
+  .header-content,
+  #about .about-content,
+  #contact .row {
+    grid-template-columns: 1fr;
     text-align: center;
   }
 
-  .header-content img  {
-    margin-top: 2rem;
-    width: 150%;
-    margin-inline: auto;
+  .header-content img,
+  #about .about-content img,
+  #contact .row img {
+    max-width: 300px;
+    margin: 0 auto;
   }
 
-  .about-content {
-    display: block;
+  .row {
+    grid-template-columns: repeat(2, 1fr);
   }
+
+  #services .row {
+    grid-template-columns: 1fr;
+  }
+
+  #portfolio .row {
+    grid-template-columns: 1fr;
+  }
+
+  #contact .row form {
+    margin-left: 0;
+  }
+}
+
+@media (max-width: 576px) {
+  .name {
+    font-size: 40px;
+  }
+
+  .title {
+    font-size: 18px;
+  }
+
+  .row {
+    grid-template-columns: 1fr;
+  }
+
+  .social a {
+    font-size: 18px;
+    padding: 8px;
+  }
+
+  .btn {
+    padding: 6px 12px;
+    font-size: 13px;
+  }
+}
 
   .col-1,
   .col-2 {
