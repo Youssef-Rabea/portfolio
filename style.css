@@ -322,63 +322,145 @@ header .header-content img {
 
 /* =================== Responsive =================== */
 
-@media (max-width: 992px) {
-  .header-content,
-  #about .about-content,
-  #contact .row {
-    grid-template-columns: 1fr;
+@media (max-width: 768px) {
+  #home .navbar nav {
+    display: block;
     text-align: center;
+    padding: 1rem 1rem; /* Adjust padding for smaller screens */
   }
-
-  .header-content img,
-  #about .about-content img,
-  #contact .row img {
-    max-width: 300px;
-    margin: 0 auto;
+  #home.navbar nav ul {
+    margin-top: 10px; /* Reduced margin */
+    flex-wrap: wrap; /* Allow navigation items to wrap */
+    justify-content: center;
   }
-
-  .row {
-    grid-template-columns: repeat(2, 1fr);
+  #home.navbar nav ul a {
+    margin: 0 8px; /* Reduced margin for nav links */
+    padding: 5px 0; /* Adjust padding */
   }
-
-  #services .row {
-    grid-template-columns: 1fr;
+  #home .header-content {
+    grid-template-columns: 1fr; /* Single column layout */
+    text-align: center;
+    padding: 20px; /* Add some padding */
+    height: auto; /* Allow height to adjust */
   }
-
-  #portfolio .row {
-    grid-template-columns: 1fr;
+  #home .header-content img {
+    margin-top: 20px; /* Space between text and image */
+    max-width: 70%; /* Adjust image size */
+    margin-left: auto;
+    margin-right: auto;
   }
-
-  #contact .row form {
-    margin-left: 0;
-  }
-}
-
-@media (max-width: 576px) {
   .name {
-    font-size: 40px;
+    font-size: 45px; /* Adjust font size for smaller screens */
   }
-
   .title {
-    font-size: 18px;
+    font-size: 18px; /* Adjust font size */
   }
-
-  .row {
-    grid-template-columns: 1fr;
-  }
-
   .social a {
-    font-size: 18px;
+    font-size: 18px; /* Adjust social icon size */
     padding: 8px;
   }
 
-  .btn {
-    padding: 6px 12px;
-    font-size: 13px;
+  #about .about-content {
+    grid-template-columns: 1fr; /* Single column layout for about section */
+    text-align: center;
+    margin-top: 2rem;
+    column-gap: 0; /* Remove column gap */
+  }
+  #about .col-2 {
+    margin-top: 20px; /* Space between columns */
+  }
+  #about .col-2 p {
+    margin-bottom: 10px; /* Adjust margin */
+  }
+
+  .row {
+    grid-template-columns: repeat(2, 1fr); /* Two columns for skills, services, portfolio */
+    gap: 15px; /* Adjust gap */
+  }
+  #skills .row .item {
+    margin: 10px; /* Adjust margin */
+    padding: 0.8rem; /* Adjust padding */
+  }
+  #services .row {
+    grid-template-columns: 1fr; /* Single column for services on smaller tablets/phones */
+  }
+  #portfolio .row {
+    grid-template-columns: 1fr; /* Single column for portfolio on smaller tablets/phones */
+  }
+
+  #contact .row {
+    grid-template-columns: 1fr; /* Single column for contact section */
+    padding: 1.5rem; /* Adjust padding */
+  }
+  #contact .row img {
+    margin-bottom: 20px; /* Space between image and form */
+  }
+  #contact .row form {
+    margin-left: 0; /* Remove left margin for form */
   }
 }
 
-  .col-1,
-  .col-2 {
-    margin-bottom: 1rem;
+@media (max-width: 480px) {
+  .container {
+    padding: 0 1rem; /* Reduce container padding */
   }
+  #home .navbar nav ul a {
+    margin: 0 5px; /* Further reduce margin for nav links */
+    font-size: 14px; /* Smaller font size for nav links */
+  }
+  #home #logo {
+    margin-bottom: 10rem;
+    font-size: 18px; /* Smaller logo font size */
+  }
+  .name {
+    font-size: 35px; /* Even smaller font size for name */
+  }
+  .title {
+    font-size: 16px; /* Even smaller font size for title */
+  }
+  .social a {
+    font-size: 16px; /* Even smaller social icon size */
+    padding: 6px;
+  }
+  .btn {
+    padding: 6px 8px; /* Smaller button padding */
+    font-size: 12px; /* Smaller button font size */
+  }
+
+  #about h2, #skills h2, #services h2, #portfolio h2, #contact h2 {
+    font-size: 25px; /* Smaller section titles */
+  }
+
+  .row {
+    grid-template-columns: 1fr; /* Force single column for all .row elements */
+    gap: 10px; /* Smaller gap */
+  }
+  #skills .row .item {
+    margin: 5px; /* Even smaller margin */
+    padding: 0.6rem; /* Even smaller padding */
+    font-size: 15px; /* Smaller skill item font size */
+  }
+  #skills .row img {
+    max-width: 30px; /* Smaller skill icon size */
+  }
+
+  #services .row .item {
+    padding: 20px; /* Smaller service item padding */
+  }
+  #portfolio .row .item .item-content h3 {
+    padding: 10px 10px 15px; /* Smaller portfolio item heading padding */
+  }
+  .item-content a {
+    font-size: 14px; /* Smaller portfolio link font size */
+  }
+
+  #contact .row form input,
+  #contact .row form textarea {
+    padding: 0.4rem; /* Smaller form input padding */
+    font-size: 14px; /* Smaller form input font size */
+  }
+  #contact .row form button {
+    padding: 0.4rem 0.8rem; /* Smaller form button padding */
+    font-size: 14px; /* Smaller form button font size */
+  }
+}
