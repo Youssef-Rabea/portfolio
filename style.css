@@ -319,3 +319,29 @@ header .header-content img {
 #contact .row form button:hover {
   background-color: #00180095;
 }
+
+@media (max-width: 768px) {
+  #about {
+    margin-top: 4rem; /* مسافة تبعده عن الهيدر */
+  }
+  
+  .header-content {
+    padding-bottom: 3rem; /* خلي الهيدر يبعد عن اللي بعده */
+    grid-template-columns: 1fr; /* صورة تحت الكلام */
+    text-align: center;
+  }
+
+  .header-content img  {
+    margin-top: 2rem;
+    width: 150%;
+    margin-inline: auto;
+  }
+
+  .about-content {
+    display: block;
+  }
+
+  .col-1,
+  .col-2 {
+    margin-bottom: 1rem;
+  }
