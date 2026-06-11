@@ -2,6 +2,9 @@
 let audioCtx = null;
 let soundMuted = false;
 
+// --- TOUCH / MOBILE DETECTION ---
+const isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+
 function initAudio() {
   if (!audioCtx) {
     audioCtx = new (window.AudioContext || window.webkitAudioContext)();
@@ -192,33 +195,35 @@ document.addEventListener("DOMContentLoaded", () => {
 const dot = document.getElementById('cursor-dot');
 const ring = document.getElementById('cursor-ring');
 
-let mouse = { x: 0, y: 0 };
-let ringPos = { x: 0, y: 0 };
+// Only run cursor tracking on non-touch devices
+if (!isTouchDevice) {
+  let mouse = { x: 0, y: 0 };
+  let ringPos = { x: 0, y: 0 };
 
-window.addEventListener('mousemove', e => {
-  mouse.x = e.clientX;
-  mouse.y = e.clientY;
-  
-  // Instantly position center dot
-  if (dot) {
-    dot.style.left = mouse.x + 'px';
-    dot.style.top = mouse.y + 'px';
+  window.addEventListener('mousemove', e => {
+    mouse.x = e.clientX;
+    mouse.y = e.clientY;
+    if (dot) {
+      dot.style.left = mouse.x + 'px';
+      dot.style.top = mouse.y + 'px';
+    }
+  });
+
+  function updateCursor() {
+    ringPos.x += (mouse.x - ringPos.x) * 0.15;
+    ringPos.y += (mouse.y - ringPos.y) * 0.15;
+    if (ring) {
+      ring.style.left = ringPos.x + 'px';
+      ring.style.top = ringPos.y + 'px';
+    }
+    requestAnimationFrame(updateCursor);
   }
-});
-
-// Lerp smoothing loop for outer ring
-function updateCursor() {
-  ringPos.x += (mouse.x - ringPos.x) * 0.15;
-  ringPos.y += (mouse.y - ringPos.y) * 0.15;
-
-  if (ring) {
-    ring.style.left = ringPos.x + 'px';
-    ring.style.top = ringPos.y + 'px';
-  }
-
-  requestAnimationFrame(updateCursor);
+  updateCursor();
+} else {
+  // Hide cursor elements on touch devices
+  if (dot) dot.style.display = 'none';
+  if (ring) ring.style.display = 'none';
 }
-updateCursor();
 
 
 // --- SCROLL PROGRESS BAR ---
@@ -299,7 +304,8 @@ setTimeout(handleTypewriter, 4000);
 
 // --- THREE.JS PARTICLES CONSTALLATION GRID ---
 let scene, camera, renderer, starParticles, constellationLines;
-let particlesCount = 2200;
+// Reduce particle count on mobile for better performance
+let particlesCount = isTouchDevice ? 800 : 2200;
 let pGeometry, pMaterial;
 let targetCameraX = 0, targetCameraY = 0;
 
@@ -421,11 +427,13 @@ function initThreeJS() {
   // Resize Listener
   window.addEventListener('resize', onWindowResize);
 
-  // Mouse Parallax Track
-  window.addEventListener('mousemove', e => {
-    targetCameraX = (e.clientX - window.innerWidth / 2) * 0.08;
-    targetCameraY = (e.clientY - window.innerHeight / 2) * 0.08;
-  });
+  // Mouse Parallax Track — only on non-touch devices
+  if (!isTouchDevice) {
+    window.addEventListener('mousemove', e => {
+      targetCameraX = (e.clientX - window.innerWidth / 2) * 0.08;
+      targetCameraY = (e.clientY - window.innerHeight / 2) * 0.08;
+    });
+  }
 
   animateThreeJS();
 }
@@ -631,8 +639,10 @@ const activeObserver = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
       navLinks.forEach(link => {
+        link.classList.remove('active-link');
         link.style.color = '';
         if (link.getAttribute('href') === '#' + entry.target.id) {
+          link.classList.add('active-link');
           link.style.color = 'var(--accent-cyan)';
         }
       });
